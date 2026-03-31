@@ -2,7 +2,12 @@
 
 import { useEffect, useRef, useState } from 'react';
 
-const WS_BASE = `${process.env.NEXT_PUBLIC_COINGECKO_WEBSOCKET_URL}?x_cg_pro_api_key=${process.env.NEXT_PUBLIC_COINGECKO_API_KEY}`;
+const websocketUrl = process.env.NEXT_PUBLIC_COINGECKO_WEBSOCKET_URL;
+const websocketApiKey = process.env.NEXT_PUBLIC_COINGECKO_API_KEY;
+const WS_BASE =
+  websocketUrl && websocketApiKey
+    ? `${websocketUrl}?x_cg_pro_api_key=${websocketApiKey}`
+    : null;
 
 export const useCoinGeckoWebSocket = ({
   coinId,
@@ -19,6 +24,8 @@ export const useCoinGeckoWebSocket = ({
   const [isWsReady, setIsWsReady] = useState(false);
 
   useEffect(() => {
+    if (!WS_BASE) return;
+
     const ws = new WebSocket(WS_BASE);
     wsRef.current = ws;
 

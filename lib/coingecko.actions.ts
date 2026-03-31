@@ -8,14 +8,20 @@ const API_KEY = process.env.COINGECKO_API_KEY;
 if (!BASE_URL) throw new Error('Could not get base url');
 if (!API_KEY) throw new Error('Could not get api key');
 
+const normalizedBaseUrl = BASE_URL.replace(/\/+$/, '');
+const apiKeyHeader = normalizedBaseUrl.includes('pro-api.coingecko.com')
+  ? 'x-cg-pro-api-key'
+  : 'x-cg-demo-api-key';
+
 export async function fetcher<T>(
   endpoint: string,
   params?: QueryParams,
   revalidate = 60,
 ): Promise<T> {
+  const normalizedEndpoint = endpoint.replace(/^\/+/, '');
   const url = qs.stringifyUrl(
     {
-      url: `${BASE_URL}/${endpoint}`,
+      url: `${normalizedBaseUrl}/${normalizedEndpoint}`,
       query: params,
     },
     { skipEmptyString: true, skipNull: true },
@@ -23,7 +29,7 @@ export async function fetcher<T>(
 
   const response = await fetch(url, {
     headers: {
-      'x-cg-pro-api-key': API_KEY,
+      [apiKeyHeader]: API_KEY,
       'Content-Type': 'application/json',
     } as Record<string, string>,
     next: { revalidate },
