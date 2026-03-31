@@ -19,9 +19,13 @@
   <h3 align="center">CryptoPulse — Analytics Dashboard</h3>
 
    <div align="center">
-     Build this project step by step with our detailed tutorial on <a href="https://www.youtube.com/watch?v=XUkNR-JfHwo" target="_blank"><b>JavaScript Mastery</b></a> YouTube. Join the JSM family!
+     Real-time cryptocurrency analytics dashboard with market data, OHLC charts, search, and token detail pages powered by Next.js and CoinGecko.
     </div>
 </div>
+
+## Project Description
+
+CryptoPulse is a cryptocurrency dashboard for tracking market trends, exploring coins, and viewing token details in a clean, responsive interface. The app combines CoinGecko REST data with interactive candlestick charts and live market updates to provide a practical overview of price action, market capitalization, volume, and trending assets.
 
 ## 📋 <a name="table">Table of Contents</a>
 
